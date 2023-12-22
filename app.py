@@ -8,6 +8,9 @@ app = Flask(__name__)
 
 loaded_model = joblib.load("model.joblib")
 
+@app.route('/')
+def hello():
+    return "Hello! Welcome to my Flask app."
 
 @app.route("/predict", methods=["POST"])
 def predict():
@@ -33,8 +36,11 @@ def predict():
         "predictions": predictions.tolist(),
         "image_url": image_url,
         "message": "Successfully Predicted"
-        })
-
+    })
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(
+        debug=True,
+        host="0.0.0.0",
+        port=5000
+        )
